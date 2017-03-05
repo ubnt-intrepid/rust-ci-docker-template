@@ -1,0 +1,4 @@
+[root]
+name = "rust-ci-docker-template"
+version = "0.1.0"
+
