@@ -23,7 +23,7 @@ start_container() {
 case `uname -s` in
   Linux)
     if [[ "$(docker images -q "$image_name" | wc -l)" = 0 ]]; then
-      $script_dir/../docker/build_image.sh "$target" "$toolchain" "$image_name"
+      $script_dir/docker/build_image.sh "$target" "$toolchain" "$image_name"
     fi
     start_container "$image_name" "$container_name"
     # check installation

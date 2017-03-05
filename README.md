@@ -22,6 +22,10 @@
   $ docker exec -it "${CONTAINER_NAME}" cargo build
   ```
 
+## Installation for deploying
+* Copy `ci/*`, `.travis.yml` and `appveyor.yml` into your project's directory
+* Replace `$CRATE_NAME` and API keys to your project's values
+
 ## License
 MIT license. See [LICENSE](LICENSE) for details.
 
