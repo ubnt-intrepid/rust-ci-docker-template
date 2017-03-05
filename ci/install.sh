@@ -1,18 +1,21 @@
 #!/bin/bash
 
+script_dir="$(cd $(dirname $BASH_SOURCE); pwd)"
+
 set -euo pipefail
 
-script_dir="$(cd $(dirname $BASH_SOURCE); pwd)"
+#= PARAMETERS ===================================
 
 target="${1:-x86_64-unknown-linux-gnu}"
 toolchain="${2:-stable}"
+container_name="${3:-rust}"
+
+#================================================
+
 
 image_name="ubntintrepid/rust-${target}:${toolchain}"
-container_name=rust
 
 start_container() {
-  local image_name="$1"
-  local container_name="$2"
   docker rm -f "$container_name" || true
   docker run --name "$container_name" -d -it --privileged -v "$(pwd)":/root/src "$image_name"
 }

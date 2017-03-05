@@ -2,26 +2,24 @@
 
 ## Usage
 
-* build image
-
+* Building image && start container
   ```sh
-  $ export TARGET=i686-unknown-linux-musl
+  $ export TARGET=x86_64-unknown-linux-musl
   $ export TOOLCHAIN=stable
-  $ export IMAGENAME="ubnt-intrepid/rust-$TARGET:$TOOLCHAIN"
+  $ export CONTAINER_NAME=rust
 
-  $ ./docker/build_image.sh $TARGET $TOOLCHAIN $IMAGENAME
+  $ ./ci/install.sh "${TARGET}" "${TOOLCHAIN}" "${CONTAINER_NAME}"
   ```
 
-* start container
+  First, a docker image will be created with named `ubntintrepid/rust-"$TARGET":"$TOOLCHAIN"`.
+  If the image has already created, skip building the image.
 
+  Next, a container will be created with named `$CONTAINER_NAME`.
+  Working directory of the container is set at `/root/src`, which is mounted at host's current working directory.
+
+* Compiling using docker container
   ```sh
-  $ ./ci/install.sh $TARGET $TOOLCHAIN
-  ```
-
-* build by using docker
-
-  ```sh
-  $ docker exec -it rust cargo build
+  $ docker exec -it "${CONTAINER_NAME}" cargo build
   ```
 
 ## License
