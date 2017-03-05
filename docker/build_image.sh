@@ -8,7 +8,6 @@ set -x
 target="$1"
 toolchain="$2"
 image_name="$3"
-container_name="$4"
 
 ls -F "$script_dir" | grep '/$' | sed -e 's!/$!!' | grep $target || {
   echo "error: '$target' is unsupported target"

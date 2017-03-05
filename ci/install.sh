@@ -7,7 +7,7 @@ script_dir="$(cd $(dirname $BASH_SOURCE); pwd)"
 target="${1:-x86_64-unknown-linux-gnu}"
 toolchain="${2:-stable}"
 
-image_name="ubntintrepid/rust-${target}-${toolchain}:latest"
+image_name="ubntintrepid/rust-${target}:${toolchain}"
 container_name=rust
 
 start_container() {
@@ -19,7 +19,9 @@ start_container() {
 
 case `uname -s` in
   Linux)
-    $script_dir/../docker/build_image.sh "$target" "$toolchain" "$image_name"
+    if [[ "$(docker images -q "$image_name" | wc -l)" = 0 ]]; then
+      $script_dir/../docker/build_image.sh "$target" "$toolchain" "$image_name"
+    fi
     start_container "$image_name" "$container_name"
     # check installation
     docker exec -it "$container_name" rustup --version
